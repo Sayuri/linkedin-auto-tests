@@ -104,11 +104,11 @@ public class ConfigurationManager {
      */
     private static void setTheDriverForMacOS(Properties prop) {
         if(prop.getProperty("driver").equals("firefox")) {
-            System.setProperty("webdriver.gecko.driver", new File(ClassLoader.getSystemResource("geckodriverMacOS").getFile()).getAbsolutePath());
+            System.setProperty("webdriver.gecko.driver", new File(ClassLoader.getSystemResource("geckodriver").getFile()).getAbsolutePath());
             driver = new FirefoxDriver();
         }
         else if(prop.getProperty("driver").equals("chrome")) {
-            System.setProperty("webdriver.chrome.driver", new File(ClassLoader.getSystemResource("chromedriverMac").getFile()).getAbsolutePath());
+            System.setProperty("webdriver.chrome.driver", new File(ClassLoader.getSystemResource("chromedriver").getFile()).getAbsolutePath());
             driver = new ChromeDriver();
         }
     }

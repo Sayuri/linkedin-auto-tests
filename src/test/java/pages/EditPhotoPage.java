@@ -24,7 +24,7 @@ public class EditPhotoPage extends BasePage{
     @FindBy(css = ".preview-profile.button-primary")
     private WebElement viewProfileAsButton;
 
-    @FindBy(css = ".profile-photo-zoom-disabled")
+    @FindBy(css = ".profile-picture img")
     private WebElement imageBlock;
 
 //    src="https://media.licdn.com/media/AAEAAQAAAAAAAAf9AAAAJDM3NTBhMWJhLWE1YjQtNGQ2ZS04MDEyLWM0M2U4NmJhZjBhMw.jpg"
@@ -38,36 +38,15 @@ public class EditPhotoPage extends BasePage{
     }
 
     public void uploadAPhoto() {
-        browseButton.click();
         try {
             sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        StringSelection ss = new StringSelection(new File(ClassLoader.getSystemResource("testPicture.jpg").getFile()).getAbsolutePath());
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-        Robot robot = null;
+        String thePath = new File(ClassLoader.getSystemResource("testPicture.jpg").getFile()).getAbsolutePath();
+        browseButton.sendKeys(thePath);
         try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_V);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        robot.keyPress(KeyEvent.VK_ENTER);
-        robot.keyRelease(KeyEvent.VK_ENTER);
-
-        waitUntilElementIsClickable(saveButton);
-        try {
-            sleep(2000);
+            sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -77,15 +56,19 @@ public class EditPhotoPage extends BasePage{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        int i = 0;
-        while(i<20){
-            System.out.println("The image block after the photo is added" + imageBlock.findElement(By.cssSelector(">img")).getAttribute("src"));
-            try {
-                sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            i++;
+        System.out.println(imageBlock.getAttribute("src"));
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        System.out.println(imageBlock.getAttribute("src"));
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
+
 }
