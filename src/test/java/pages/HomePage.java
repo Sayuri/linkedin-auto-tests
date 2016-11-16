@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -19,6 +20,8 @@ public class HomePage extends BasePage{
     @FindBy(className = "search-button")
     private WebElement searchButton;
 
+    @FindBy(css = ".cta.button")
+    private WebElement addAPhotoButton;
 
     /**
      * The constructor of HomePage class that has PageFactory initialization of WebElements and explicit waiting
@@ -27,6 +30,8 @@ public class HomePage extends BasePage{
     public HomePage() {
         PageFactory.initElements(ConfigurationManager.getDriver(), this);
         waitUntilElementIsDisplayed(identityBlock, 5).isDisplayed();
+        waitUntilElementIsDisplayed(addAPhotoButton, 5).isDisplayed();
+
     }
 
     /**
@@ -48,4 +53,8 @@ public class HomePage extends BasePage{
         return new SearchPage();
     }
 
+    public EditPhotoPage goToEditPhotoPage() {
+        addAPhotoButton.click();
+        return new EditPhotoPage();
+    }
 }

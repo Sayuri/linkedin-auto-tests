@@ -31,6 +31,11 @@ public class BasePage {
         return waitUntilElementIsDisplayed(element, 10);
     }
 
+    public WebElement waitUntilElementIsClickable(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(ConfigurationManager.getDriver(), 10);
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
     /**
      * Gets current Browser URL
      * @return String with current URL value
