@@ -6,6 +6,8 @@ import utils.ConfigurationManager;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.sleep;
+
 public class BaseTest {
 
     /**
@@ -22,6 +24,12 @@ public class BaseTest {
      */
     @AfterClass
     public void afterClass() {
+        System.out.println("starting basetest's afterclass");
+        try {
+            sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if(ConfigurationManager.getDriver() != null) {
             ConfigurationManager.getDriver().quit();
         }

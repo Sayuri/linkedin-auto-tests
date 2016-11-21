@@ -6,12 +6,6 @@ import org.testng.annotations.Test;
 import pages.RegistrationAndLoginPage;
 import tests.BaseTest;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.lang.Thread.sleep;
-
 public class RegistrationTest extends BaseTest{
 
     /**

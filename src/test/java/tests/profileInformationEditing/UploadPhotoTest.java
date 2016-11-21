@@ -1,8 +1,6 @@
 package tests.profileInformationEditing;
 
 import org.junit.Assert;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -11,18 +9,27 @@ import pages.HomePage;
 import pages.RegistrationAndLoginPage;
 import tests.BaseTest;
 
-import static java.lang.Thread.sleep;
-
 public class UploadPhotoTest extends BaseTest {
     private HomePage homePage;
     private EditPhotoPage editPhotoPage;
 
+    /**
+     * Method that is run before the class
+     * New RegistrationAndLoginPage object is created
+     * Logs in with valid credentials
+     * New HomePage object is created
+     */
     @BeforeClass
-    public void beforeTest() {
+    public void beforeClass() {
         RegistrationAndLoginPage registrationAndLoginPage = new RegistrationAndLoginPage();
         homePage = registrationAndLoginPage.loginAndGoToHomePage("dem.iuliia.p@gmail.com", "dem.iuliia.p.password");
     }
 
+    /**
+     * Navigates to EditPhotoPage
+     * Photo is loaded
+     * Asserts that photo is loaded
+     */
     @Test
     public void uploadPhotoTest() {
         editPhotoPage = homePage.goToEditPhotoPage();
@@ -30,8 +37,13 @@ public class UploadPhotoTest extends BaseTest {
         Assert.assertTrue(editPhotoPage.getProfileImage().isDisplayed());
     }
 
+    /**
+     * Method that is run after class
+     * Profile photo is removed
+     * Asserts that the photo is removed
+     */
     @AfterClass
-    public void afterTest() {
+    public void afterClass() {
         editPhotoPage.clickOnChangePhotoButton();
         editPhotoPage.getDeleteButton().click();
         editPhotoPage.waitUntilElementIsDisplayed(editPhotoPage.getProfileImagePlaceHolder());

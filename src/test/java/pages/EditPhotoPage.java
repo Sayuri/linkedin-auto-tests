@@ -1,18 +1,14 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.ConfigurationManager;
 
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.io.File;
 
-import static java.lang.Thread.sleep;
 
 public class EditPhotoPage extends BasePage{
 
@@ -31,7 +27,7 @@ public class EditPhotoPage extends BasePage{
     @FindBy(id = "control_gen_3")
     private WebElement changePhotoButton;
 
-    @FindBy(id = "delete")
+    @FindBy(className = "delete")
     private WebElement deleteButton;
 
     @FindBy(css = "button#control_gen_3>span>span:first-child")
@@ -39,7 +35,7 @@ public class EditPhotoPage extends BasePage{
 
     public EditPhotoPage() {
         PageFactory.initElements(ConfigurationManager.getDriver(), this);
-        waitUntilElementIsDisplayed(browseButton, 5).isDisplayed();
+        waitUntilElementIsClickable(browseButton);
     }
 
     public WebElement getDeleteButton() {
@@ -67,7 +63,16 @@ public class EditPhotoPage extends BasePage{
     }
 
     public void clickOnChangePhotoButton() {
-        Actions action = new Actions(ConfigurationManager.getDriver());
-        action.moveToElement(profileImage).moveToElement(changePhotoButton).click().build().perform();
+        Point coordinates = changePhotoButton.getLocation();
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        robot.mouseMove(coordinates.x,coordinates.y);
+        changePhotoButton.click();
+        waitUntilElementIsClickable(deleteButton);
+        deleteButton.click();
     }
 }
