@@ -28,11 +28,11 @@ public class BasePage {
      * @return WebElement that was explicitly waited to be displayed
      */
     public WebElement waitUntilElementIsDisplayed(WebElement element) {
-        return waitUntilElementIsDisplayed(element, 10);
+        return waitUntilElementIsDisplayed(element, 20);
     }
 
     public WebElement waitUntilElementIsClickable(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(ConfigurationManager.getDriver(), 10);
+        WebDriverWait wait = new WebDriverWait(ConfigurationManager.getDriver(), 20);
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 

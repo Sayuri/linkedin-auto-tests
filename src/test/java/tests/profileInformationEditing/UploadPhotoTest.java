@@ -1,5 +1,9 @@
 package tests.profileInformationEditing;
 
+import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.EditPhotoPage;
@@ -23,10 +27,14 @@ public class UploadPhotoTest extends BaseTest {
     public void uploadPhotoTest() {
         editPhotoPage = homePage.goToEditPhotoPage();
         editPhotoPage.uploadAPhoto();
-        try {
-            sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Assert.assertTrue(editPhotoPage.getProfileImage().isDisplayed());
+    }
+
+    @AfterClass
+    public void afterTest() {
+        editPhotoPage.clickOnChangePhotoButton();
+        editPhotoPage.getDeleteButton().click();
+        editPhotoPage.waitUntilElementIsDisplayed(editPhotoPage.getProfileImagePlaceHolder());
+        Assert.assertEquals(editPhotoPage.getPhotoHolderText(), "Add a photo");
     }
 }

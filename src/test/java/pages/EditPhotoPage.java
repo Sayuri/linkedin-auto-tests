@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.ConfigurationManager;
@@ -24,51 +25,49 @@ public class EditPhotoPage extends BasePage{
     @FindBy(css = ".preview-profile.button-primary")
     private WebElement viewProfileAsButton;
 
-    @FindBy(css = ".profile-picture img")
-    private WebElement imageBlock;
+    @FindBy(css = "img[src^='https://media.licdn.com/media']")
+    private WebElement profileImage;
 
-//    src="https://media.licdn.com/media/AAEAAQAAAAAAAAf9AAAAJDM3NTBhMWJhLWE1YjQtNGQ2ZS04MDEyLWM0M2U4NmJhZjBhMw.jpg"
-//    src="https://media.licdn.com/media/AAEAAQAAAAAAAAhPAAAAJDk4OGU2ZTc0LTI2NzMtNGJhNi05ZDllLTI2MTEyYjQxYzI2OQ.jpg"
-//
-//    src="https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png"
+    @FindBy(id = "control_gen_3")
+    private WebElement changePhotoButton;
+
+    @FindBy(id = "delete")
+    private WebElement deleteButton;
+
+    @FindBy(css = "button#control_gen_3>span>span:first-child")
+    private WebElement profileImagePlaceHolder;
 
     public EditPhotoPage() {
         PageFactory.initElements(ConfigurationManager.getDriver(), this);
         waitUntilElementIsDisplayed(browseButton, 5).isDisplayed();
     }
 
-    public void uploadAPhoto() {
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String thePath = new File(ClassLoader.getSystemResource("testPicture.jpg").getFile()).getAbsolutePath();
-        browseButton.sendKeys(thePath);
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        saveButton.click();
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(imageBlock.getAttribute("src"));
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(imageBlock.getAttribute("src"));
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public WebElement getDeleteButton() {
+        return deleteButton;
     }
 
+    public WebElement getProfileImage() {
+        return profileImage;
+    }
+
+    public WebElement getProfileImagePlaceHolder() {
+        return profileImagePlaceHolder;
+    }
+
+    public void uploadAPhoto() {
+        String thePath = new File(ClassLoader.getSystemResource("testPicture.jpg").getFile()).getAbsolutePath();
+        browseButton.sendKeys(thePath);
+        waitUntilElementIsClickable(saveButton);
+        saveButton.click();
+        waitUntilElementIsDisplayed(profileImage);
+    }
+
+    public String getPhotoHolderText() {
+        return profileImagePlaceHolder.getText();
+    }
+
+    public void clickOnChangePhotoButton() {
+        Actions action = new Actions(ConfigurationManager.getDriver());
+        action.moveToElement(profileImage).moveToElement(changePhotoButton).click().build().perform();
+    }
 }

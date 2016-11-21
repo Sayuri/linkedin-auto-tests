@@ -4,6 +4,8 @@ package tests;
 import org.testng.annotations.*;
 import utils.ConfigurationManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class BaseTest {
 
     /**
@@ -12,6 +14,7 @@ public class BaseTest {
     @BeforeClass
     public void beforeClass() {
         ConfigurationManager.getDriver().get("https://www.linkedin.com");
+        ConfigurationManager.getDriver().manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     }
 
     /**
